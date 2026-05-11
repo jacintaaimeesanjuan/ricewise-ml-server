@@ -67,28 +67,43 @@ def sigmoid(x: float) -> float:
 
 
 # ──────────────────────────────────────────────
-# DRAWING HELPERS  (OpenCV)
+# CLASS-BASED COLOR MAPPING  (BGR format)
 # ──────────────────────────────────────────────
-_PALETTE_BGR = [
-    (  0, 200,   0),   # green
-    (  0,   0, 220),   # blue
-    (  0, 150, 220),   # amber  → BGR
-    (180,   0, 180),   # purple
-    (200, 200,   0),   # cyan   → BGR
-    (  0,  80, 255),   # orange → BGR
-    (220, 100, 100),   # cornflower → BGR
-    (100, 160,   0),   # teal   → BGR
-    (100,  50, 220),   # rose   → BGR
-    ( 50, 160, 160),   # olive  → BGR
-]
-_label_color_map: dict[str, tuple] = {}
+_CLASS_COLOR_MAP_BGR = {
+    # CLS1 - Rice vs Other
+    "rice grain": (0, 255, 0),           # Bright green
+    "other matter": (0, 191, 255),       # Sky blue
+
+    # CLS2 - Brokenness
+    "not broken": (0, 255, 0),           # Bright green
+    "broken": (0, 165, 255),             # Orange
+    "brewer": (255, 0, 0),               # Bright blue
+
+    # CLS3 - Contrasting Type
+    "Indica rice": (0, 255, 0),          # Bright green
+    "contrasting type": (0, 255, 255),   # Yellow
+
+    # CLS4 - Defectives
+    "no defective": (0, 255, 0),         # Bright green
+    "damaged": (0, 165, 255),            # Orange
+    "discolored": (0, 100, 255),         # Red-orange
+    "chalky": (0, 255, 255),             # Yellow
+    "immature": (255, 0, 255),           # Magenta
+    "red kernels": (255, 0, 191),        # Pink
+
+    # CLS5 - Other Matter
+    "paddy rice": (0, 200, 150),         # Teal
+    "foreign matter": (0, 191, 255),     # Sky blue
+}
 
 def _get_color(label: str) -> tuple:
-    if label not in _label_color_map:
-        _label_color_map[label] = _PALETTE_BGR[len(_label_color_map) % len(_PALETTE_BGR)]
-    return _label_color_map[label]
+    """Get color for a specific class label (BGR format)."""
+    return _CLASS_COLOR_MAP_BGR.get(label, (128, 128, 128))  # Default gray
 
 
+# ──────────────────────────────────────────────
+# DRAWING HELPERS  (OpenCV)
+# ──────────────────────────────────────────────
 def draw_boxes_cv2(
     image: np.ndarray,
     boxes_px: list[tuple[int, int, int, int]],   # [(x1,y1,x2,y2), …]
@@ -97,7 +112,7 @@ def draw_boxes_cv2(
 ) -> np.ndarray:
     """
     Draw bounding boxes + label chips on a BGR OpenCV image.
-    Matches draw_results / draw_results_for_stage from the notebook.
+    Uses class-based colors from _CLASS_COLOR_MAP_BGR.
     """
     vis = image.copy()
     for (x1, y1, x2, y2), label, conf in zip(boxes_px, labels, confidences):
