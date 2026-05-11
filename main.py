@@ -92,7 +92,7 @@ _CLASS_COLOR_MAP_BGR = {
     "red kernels": (255, 0, 191),        # Pink
 
     # CLS5 - Other Matter
-    "paddy rice": (181, 128, 255)        # Pastel purple
+    "paddy rice": (181, 128, 255),       # Pastel purple
     "foreign matter": (128, 202, 255),   # Pastel blue
 }
 
