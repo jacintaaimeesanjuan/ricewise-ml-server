@@ -71,29 +71,29 @@ def sigmoid(x: float) -> float:
 # ──────────────────────────────────────────────
 _CLASS_COLOR_MAP_BGR = {
     # CLS1 - Rice vs Other
-    "rice grain": (0, 255, 0),           # Bright green
-    "other matter": (0, 191, 255),       # Sky blue
+    "rice grain": (202, 255, 128),       # Pastel green
+    "other matter": (128, 202, 255),     # Pastel blue
 
     # CLS2 - Brokenness
-    "not broken": (0, 255, 0),           # Bright green
+    "not broken": (202, 255, 128),       # Bright green
     "broken": (0, 165, 255),             # Orange
     "brewer": (255, 0, 0),               # Bright blue
 
     # CLS3 - Contrasting Type
-    "Indica rice": (0, 255, 0),          # Bright green
-    "contrasting type": (0, 255, 255),   # Yellow
+    "Indica rice": (202, 255, 128),      # Pastel green
+    "contrasting type": (127, 255, 212), # Aquamarine
 
     # CLS4 - Defectives
-    "no defective": (0, 255, 0),         # Bright green
+    "no defective": (202, 255, 128),     # Pastel green
     "damaged": (0, 165, 255),            # Orange
     "discolored": (0, 100, 255),         # Red-orange
-    "chalky": (0, 255, 255),             # Yellow
+    "chalky": (127, 255, 212),           # Aquamarine
     "immature": (255, 0, 255),           # Magenta
     "red kernels": (255, 0, 191),        # Pink
 
     # CLS5 - Other Matter
-    "paddy rice": (0, 200, 150),         # Teal
-    "foreign matter": (0, 191, 255),     # Sky blue
+    "paddy rice": (181, 128, 255)        # Pastel purple
+    "foreign matter": (128, 202, 255),   # Pastel blue
 }
 
 def _get_color(label: str) -> tuple:
